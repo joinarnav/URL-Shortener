@@ -28,14 +28,14 @@ app.get('/:shortId', async (req,res)=>{
     const shortId= req.params.shortId;
     const entry= await url.findOneAndUpdate({shortId}, {$push:{ visitHistory:{timestamp: Date.now()}}});
     if(entry){
-        console.log(entry)
+        // console.log(entry)
         res.redirect(entry.redirectUrl);
     } 
 })
     
 
 
-// app.use('/analytics/:shortId', urlRouter);
+app.use('/analytics', urlRouter);
 
 app.listen(port, () => { console.log(`server started at port: ${port}` )});
 

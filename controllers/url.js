@@ -17,11 +17,13 @@ async function handleCreateNewUrl(req,res){
 }
 
 async function handleAnalytics(req,res){
-    const shortId= req.params.shortId;
+    const shortId= req?.params?.shortId;
+    // console.log(req?.params);2
 
     const entry= await url.findOne({shortId});
-    return res.json({totalClicks: entry.visitHistory.length, 
-        analytics: entry.visitHistory 
+    // console.log(entry);
+    return res.json({totalClicks: entry?.visitHistory.length, 
+        analytics: entry?.visitHistory 
     });
 }
 
