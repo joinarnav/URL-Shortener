@@ -12,7 +12,8 @@ async function handleCreateNewUrl(req,res){
         visitHistory: []
     });
 
-    return res.json({id: shortId});
+    // return res.json({id: shortId});
+    return res.render("home", {id: shortId});
 }
 
 async function handleAnalytics(req,res){
