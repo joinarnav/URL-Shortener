@@ -5,6 +5,9 @@ const url= require('./models/url');
 const app= express();
 const path= require('path');
 const staticRouter= require('./routes/staticRoutes');
+const authRouter= require('./routes/user');
+const cookieParser= require('cookie-parser');
+const {checkLogin}= require('./middleware/auth')
 
 const port= 8001;
 
@@ -19,9 +22,10 @@ app.set("views", path.resolve("./views"));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-
+app.use(cookieParser());
 app.use('/', staticRouter);
-app.use('/url', urlRouter);
+
+app.use('/url', checkLogin,  urlRouter);
 
 
 app.get('/:shortId', async (req,res)=>{
@@ -32,6 +36,8 @@ app.get('/:shortId', async (req,res)=>{
         res.redirect(entry.redirectUrl);
     } 
 })
+
+app.use('/user', authRouter);
     
 
 
