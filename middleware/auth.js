@@ -1,19 +1,28 @@
 const {getUser}= require('../authService/auth');
 
 async function checkLogin(req,res,next){
-    const uid= req.cookies?.uid;
+    const userid= req.cookies?.uid;
     
-    if(!uid){
+    if(!userid){
         return res.redirect("/login");
     }
+    
 
-    const user= getUser(uid);
+    const user= getUser(userid);
     if(!user){
         return res.redirect("/login");
     }
-
+    
     req.user= user;
     next();
 }
 
-module.exports= {checkLogin,};
+async function checkUser(req, res, next){
+    const userid= req.cookies?.uid;
+    const user= getUser(userid);
+    
+    req.user= user;
+    next();
+}
+
+module.exports= {checkLogin,checkUser};

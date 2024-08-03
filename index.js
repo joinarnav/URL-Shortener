@@ -7,7 +7,7 @@ const path= require('path');
 const staticRouter= require('./routes/staticRoutes');
 const authRouter= require('./routes/user');
 const cookieParser= require('cookie-parser');
-const {checkLogin}= require('./middleware/auth')
+const {checkLogin,checkUser}= require('./middleware/auth');
 
 const port= 8001;
 
@@ -23,7 +23,7 @@ app.set("views", path.resolve("./views"));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use('/', staticRouter);
+app.use('/', checkUser, staticRouter);
 
 app.use('/url', checkLogin,  urlRouter);
 

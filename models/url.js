@@ -1,4 +1,5 @@
 const mongo = require('mongoose');
+const userSchema= require('./user.js')
 
 const urlSchema= new mongo.Schema({
     shortId: {
@@ -13,6 +14,10 @@ const urlSchema= new mongo.Schema({
     },
 
     visitHistory:[{timestamp:{ type: Number }}],
+    createdBy:{
+        type: mongo.Schema.Types.ObjectId,
+        ref: "userschemas",
+    }
 }, {timeStamps: true}
 );
 

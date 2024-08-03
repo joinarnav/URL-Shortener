@@ -9,7 +9,8 @@ async function handleCreateNewUrl(req,res){
     await url.create({
         shortId: shortId,
         redirectUrl: body.url,
-        visitHistory: []
+        visitHistory: [],
+        createdBy: req.user._id
     });
 
     // return res.json({id: shortId});

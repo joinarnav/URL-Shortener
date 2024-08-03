@@ -9,11 +9,14 @@ async function handleSignUp(req,res){
         return res.render("SignUp", {error: "user already exists"})
     }
     else{
-        user.create({
-            name,
+        const userval = await user.create({
+            name, 
             email,
             password
         })
+        const sessionId= uuidv4();
+        setUser(sessionId, userval);
+        res.cookie('uid', sessionId);
         return res.redirect('/')
     }
     
@@ -27,7 +30,7 @@ async function handleSignIn(req,res){
     }
 
     const sessionId= uuidv4();
-    setUser(sessionId, user);
+    setUser(sessionId, userauth);
     res.cookie('uid', sessionId);
     return res.redirect('/')
 }
