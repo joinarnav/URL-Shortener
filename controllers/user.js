@@ -14,9 +14,9 @@ async function handleSignUp(req,res){
             email,
             password
         })
-        const sessionId= uuidv4();
-        setUser(sessionId, userval);
-        res.cookie('uid', sessionId);
+        
+        const token= setUser(userval);
+        res.cookie('uid', token);
         return res.redirect('/')
     }
     
@@ -29,10 +29,9 @@ async function handleSignIn(req,res){
         return res.render("login", {error: "Invalid Email or Password"});
     }
 
-    const sessionId= uuidv4();
-    setUser(sessionId, userauth);
-    res.cookie('uid', sessionId);
-    return res.redirect('/')
+    const token= setUser(userauth);
+    res.cookie('uid', token);
+    return res.redirect('/');
 }
 
 module.exports= {handleSignUp, handleSignIn}
